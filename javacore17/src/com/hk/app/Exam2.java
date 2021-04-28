@@ -2,6 +2,9 @@ package com.hk.app;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
+import java.util.List;
+
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
@@ -67,6 +70,58 @@ public class Exam2 extends JFrame {
 		bottom.add(btn1);
 		bottom.add(btn2);
 		bottom.add(btn3);
+		
+		List avgs = new ArrayList();
+		
+		btn1.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				//JOptionPane.showMessageDialog(null, "test");
+				String[] row = new String[7];
+				row[0] = txtS.getText();
+				row[1] = txt1.getText();
+				row[2] = txtE.getText(); //영어
+				row[3] = txtM.getText(); //수학
+				row[4] = txtK.getText(); //국어
+				int sum = Integer.valueOf(txtE.getText()) +
+						Integer.valueOf(txtM.getText()) +
+						Integer.valueOf(txtK.getText());
+				 row[5] = ""+sum;
+				 double avg = sum / 3.0;
+				 row[6] = ""+avg;
+				 
+				 avgs.add(avg);
+				 //JOptionPane.showMessageDialog(null, ""+avgs.size());
+				 
+				 model.addRow(row);
+				 
+				 txtS.setText("");
+				 txt1.setText("");
+				 txtE.setText("");
+				 txtM.setText("");
+				 txtK.setText("");
+				 
+				 // 웹개발 - 플로우차트 + 정보설계 + 디자인(프로토타입)
+				 // 윈도우개발 - 플로우차트(메뉴구성도) + UML(클래스다이어그램)
+				
+			}});
+		
+		btn3.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				double avgOfTotal = 0.0;
+				for(int i=0; i<avgs.size(); i++) {
+					avgOfTotal += (double)avgs.get(i);
+				}
+				double temp = avgOfTotal/avgs.size();
+				double temp2 = Double.parseDouble(String.format("%.2f", temp));
+				JOptionPane.showMessageDialog(null, ""+ temp2 );
+				
+			}});
 		
 		mainPane.add(bottom, BorderLayout.SOUTH);
 		
